@@ -1,3 +1,13 @@
+# Как развернуть проект? 
+
+    git clone https://github.com/Dmitriy-Vlasov/table-test.git
+
+    cd /путь/к/проекту
+
+    npm install
+
+    npm start
+
 # Включение/отключение показа шапки таблицы:
 
 head = {true/false}
