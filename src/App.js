@@ -23,19 +23,40 @@ function App() {
   };
 
   function onRemove(id) {
-    const newState = tabData.filter(el => el.id !== id);
+    const delData = () => new Promise(resolve => {
+      setTimeout(() => resolve("removeLine"), 500)
+    });
 
-    setTabData(newState);
+    delData().then(() => {
+      const newState = tabData.filter(el => el.id !== id);
+
+      setTabData(newState);
+    })
   };
 
   function onAdd() {
-    const newState = [...tabData, {id: Math.random(), value: ['cell1','cell2','cell3','cell4']}]
+    const addData = () => new Promise(resolve => {
+      setTimeout(() => resolve("removeLine"), 500)
+    });
 
-    setTabData(newState);
+    addData().then(() => {
+      const newState = [...tabData, {id: Math.random(), value: ['cell1','cell2','cell3','cell4']}]
+
+      setTabData(newState);
+    })
+
   }
 
   return (
-    <Table data={tabData} onEdit={onEdit} onRemove={onRemove} onAdd={onAdd} head={true}/>
+    <Table 
+      data={tabData} 
+      onEdit={onEdit} 
+      onRemove={onRemove} 
+      onAdd={onAdd} 
+      head={true}
+      headColor={'#ff9999'}
+      headFontColor={'white'}
+      bodyFontColor={'black'}/>
   );
 };
 

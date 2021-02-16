@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const StyledTable = styled.table`
 font-family: sans-serif;
 margin: 0 auto;
-border-spacing: 0`;
+border-spacing: 0;`
 
 const StyledDelButton = styled.div`
 border-radius: 50%;
@@ -17,7 +17,7 @@ text-align: center;
 background-color: red;
 color: white;
 font-size: 14px;
-display: flex:
+display: flex;
 align-items: center;
 justify-content: center;
 vertical-align: middle;
@@ -26,8 +26,8 @@ visibility: hidden;`;
 
 const StyledLines = styled.tr`
 :first-child * {
-    background-color: ${props => props.head ? "#01987a" : null};
-    color: ${props => props.head ? "white" : null};
+    background-color: ${props => props.head ? props.headColor : 'white'};
+    color: ${props => props.head ? props.headFontColor : 'white'};
 }
 
 :hover {
@@ -46,7 +46,8 @@ height: 40px;
 border: none;
 outline-none;
 padding: 0 10px;
-background-color: transparent;`;
+background-color: transparent;
+color: ${props => props.bodyFontColor};`;
 
 
 const DelButtonCell = styled.td`
@@ -71,24 +72,25 @@ cursor: pointer;`;
 // components_________________________________
 
 function Table(props) {
-    const { data, head, onEdit, onRemove, onAdd } = props;
+    const { data, head, onEdit, onRemove, onAdd, headColor, headFontColor, bodyFontColor } = props;
 
     const lines = data.map((el, idx) => {
         return (
-            <StyledLines key={el.id} head={head}>
+            <StyledLines key={el.id} head={head} headColor={headColor} headFontColor={headFontColor}>
                 {el.value.map((el, idx, arr) => {
                     return (
-                        <StyledCell key={idx}>
+                        <StyledCell key={idx} >
                             <StyledInput
                                 type="text"
                                 key={idx}
+                                bodyFontColor={bodyFontColor}
                                 defaultValue={el}
                                 onChange={(e) => onEdit(arr, idx, e.target.value)} />
                         </StyledCell>
                     )
                 })}
                 {
-                (idx === 0 && head === true) ?
+                    (idx === 0 && head === true) ?
                         null :
                         <DelButtonCell>
                             <StyledDelButton onClick={() => onRemove(el.id)}>x</StyledDelButton>
