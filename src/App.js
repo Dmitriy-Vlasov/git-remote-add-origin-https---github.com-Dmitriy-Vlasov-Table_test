@@ -29,13 +29,9 @@ function App() {
   };
 
   function onAdd() {
-    console.log('kkdkd')
-
     const newState = [...tabData, {id: Math.random(), value: ['cell1','cell2','cell3','cell4']}]
-      
 
-
-    setTabData(newState)
+    setTabData(newState);
   }
 
   return (
