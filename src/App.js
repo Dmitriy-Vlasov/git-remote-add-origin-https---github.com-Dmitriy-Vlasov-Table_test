@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import Table from './Table';
+
+
+const data = [
+  {id: Math.random(), value: ['cell1', 'cell2', 'cell3', 'cell4']},
+  {id: Math.random(), value: ['cell1', 'cell2', 'cell3', 'cell4']},
+  {id: Math.random(), value: ['cell1', 'cell2', 'cell3', 'cell4']},
+  {id: Math.random(), value: ['cell1', 'cell2', 'cell3', 'cell4']},
+];
+
 
 function App() {
+  const [tabData, setTabData] = useState(data);
+
+  function onEdit(arr, idx, value) {
+    const editedLine = tabData.find(el => el.value === arr);
+    const idxLine = tabData.indexOf(editedLine);
+
+    tabData[idxLine].value[idx] = value;
+
+    setTabData(tabData);
+  };
+
+  function onRemove(id) {
+    const newState = tabData.filter(el => el.id !== id);
+
+    setTabData(newState);
+  };
+
+  function onAdd() {
+    console.log('kkdkd')
+
+    const newState = [...tabData, {id: Math.random(), value: ['cell1','cell2','cell3','cell4']}]
+      
+
+
+    setTabData(newState)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Table data={tabData} onEdit={onEdit} onRemove={onRemove} onAdd={onAdd} head={true}/>
   );
-}
+};
 
 export default App;
